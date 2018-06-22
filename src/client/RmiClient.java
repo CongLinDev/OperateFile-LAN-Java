@@ -19,8 +19,9 @@ public class RmiClient {
      * @throws NotBoundException
      */
     private static void fileTransferServiceInit() throws MalformedURLException, RemoteException, NotBoundException {
-        String rmi = "rmi://192.168.0.103:5000/FileTransfer";
+        String rmi = "rmi://192.168.1.2:5000/FileTransfer";
         FileTransferService fts = (FileTransferService)Naming.lookup(rmi);
+
         handler = new FileTransferHandler(fts);
     }
 
@@ -59,16 +60,11 @@ public class RmiClient {
     
     /**
      * 主函数
-     * @param ags
+     * @param args
      */
-    public static void main(String ags[]) {
+    public static void main(String args[]) {
         try {
             fileTransferServiceInit();
-            Scanner scanner = new Scanner(System.in);
-            String []args = new String [3];
-            for(int i = 0; i < 3; i++){
-                args[i] = scanner.next();
-            }
             commandProcressor(args);
         }catch (NotBoundException e) {
             e.printStackTrace();
